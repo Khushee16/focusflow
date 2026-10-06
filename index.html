@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FocusFlow — a clean Pomodoro timer with tasks and daily stats. Work in focused sprints." />
+  <title>FocusFlow — Pomodoro Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="logo">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/>
+        </svg>
+        <span>FocusFlow</span>
+      </div>
+      <p class="header-sub" id="dateLabel"></p>
+    </header>
+
+    <main>
+      <section class="timer-card" aria-label="Pomodoro timer">
+        <div class="mode-tabs" role="group" aria-label="Timer mode">
+          <button class="mode-tab active" data-mode="focus">Focus</button>
+          <button class="mode-tab" data-mode="short">Short break</button>
+          <button class="mode-tab" data-mode="long">Long break</button>
+        </div>
+
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+            <circle class="ring-bg" cx="110" cy="110" r="96" />
+            <circle class="ring-fg" id="ringFg" cx="110" cy="110" r="96" />
+          </svg>
+          <div class="ring-center">
+            <p class="time" id="timeDisplay">25:00</p>
+            <p class="mode-label" id="modeLabel">Focus session</p>
+          </div>
+        </div>
+
+        <div class="timer-controls">
+          <button class="btn btn-primary btn-lg" id="startPauseBtn">Start</button>
+          <button class="btn btn-ghost" id="resetBtn" aria-label="Reset timer">Reset</button>
+        </div>
+        <p class="cycle-note" id="cycleNote">Complete 4 focus sessions to earn a long break.</p>
+
+        <details class="settings">
+          <summary>Adjust timer lengths</summary>
+          <div class="settings-grid">
+            <div class="setting">
+              <label for="focusLen">Focus (min)</label>
+              <div class="stepper">
+                <button data-target="focusLen" data-dir="-1" aria-label="Decrease focus length">−</button>
+                <input type="number" id="focusLen" min="5" max="90" step="5" value="25" />
+                <button data-target="focusLen" data-dir="1" aria-label="Increase focus length">+</button>
+              </div>
+            </div>
+            <div class="setting">
+              <label for="shortLen">Short break (min)</label>
+              <div class="stepper">
+                <button data-target="shortLen" data-dir="-1" aria-label="Decrease short break">−</button>
+                <input type="number" id="shortLen" min="1" max="30" step="1" value="5" />
+                <button data-target="shortLen" data-dir="1" aria-label="Increase short break">+</button>
+              </div>
+            </div>
+            <div class="setting">
+              <label for="longLen">Long break (min)</label>
+              <div class="stepper">
+                <button data-target="longLen" data-dir="-1" aria-label="Decrease long break">−</button>
+                <input type="number" id="longLen" min="5" max="60" step="5" value="15" />
+                <button data-target="longLen" data-dir="1" aria-label="Increase long break">+</button>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="stats-row" aria-label="Today's stats">
+        <div class="stat-card">
+          <p class="stat-num" id="statPomodoros">0</p>
+          <p class="stat-label">Focus sessions today</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num" id="statMinutes">0</p>
+          <p class="stat-label">Focus minutes today</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-num" id="statTasks">0/0</p>
+          <p class="stat-label">Tasks done</p>
+        </div>
+      </section>
+
+      <section class="tasks-card" aria-label="Task list">
+        <h2>Today's tasks</h2>
+        <form id="taskForm" class="task-form">
+          <input type="text" id="taskInput" placeholder="What will you focus on?" aria-label="New task" maxlength="120" autocomplete="off" />
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <ul class="task-list" id="taskList"></ul>
+        <p class="tasks-empty" id="tasksEmpty">No tasks yet — add one above to plan your focus sessions.</p>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>FocusFlow &middot; Work in sprints, rest on purpose.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
